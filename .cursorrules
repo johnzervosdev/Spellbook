@@ -1,0 +1,54 @@
+You are working on a single-user Dungeons & Dragons 5e spellbook application.
+
+## Core Objective
+Build a fast, immersive spellbook-style web app for managing spells and spell slots during gameplay. The app must prioritize usability during live play over architectural complexity.
+
+## Hard Constraints (DO NOT VIOLATE)
+- This is a frontend-only application in MVP.
+- No backend, no APIs, no servers.
+- No authentication or user accounts.
+- No cloud sync or cross-device state sharing.
+- No database layer (beyond browser localStorage).
+- No rules engine or automated game logic.
+- No expansion into full D&D Beyond-like system.
+
+## Scope Discipline
+- If a feature is not explicitly required in MVP.md, do NOT implement it.
+- Prefer removing complexity over adding abstraction.
+- Do not introduce new libraries unless necessary and justified.
+- Do not refactor unrelated code when making a local change.
+
+## State & Persistence Rules
+- All persistence must use browser localStorage.
+- State should be simple, explicit, and inspectable.
+- Do not introduce external state management libraries unless asked.
+
+## Code Style
+- Prefer simple, readable React patterns.
+- Use functional components and hooks.
+- Avoid over-engineering abstractions early.
+- Keep component hierarchy shallow where possible.
+
+## UI Philosophy
+- The app should feel like a magical spellbook, not a dashboard.
+- Functionality during gameplay is more important than visual polish.
+- UI complexity must serve usability, not aesthetics alone.
+
+## Decision Behavior
+- When uncertain, choose the simplest working solution.
+- If a change risks expanding scope, stop and ask for clarification.
+- Do not “future-proof” beyond MVP requirements.
+
+## File Discipline
+- Respect PROJECT_STRUCTURE.md.
+- Place code in the correct feature folder.
+- Do not reorganize folder structure without explicit instruction.
+
+## Refactoring Rule
+Do not refactor existing working code unless it is required to complete the current task or fix a bug.
+
+## Feature Expansion Rule
+If a request implies expanding beyond MVP scope, explicitly identify it as out of scope and do not implement it.
+
+## Architecture Rule
+Do not introduce new architectural layers (services, repositories, abstractions) unless explicitly requested.
