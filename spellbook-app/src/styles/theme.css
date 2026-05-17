@@ -1,0 +1,14 @@
+:root {
+  --parchment: #f3e7c9;
+  --parchment-deep: #e7d5a8;
+  --parchment-edge: #c9b178;
+  --ink: #3a2a14;
+  --ink-soft: #6a4f2a;
+  --accent: #7a1e1e;
+  --accent-soft: #a44a3f;
+  --rule: rgba(58, 42, 20, 0.25);
+  --panel-shadow: 0 2px 8px rgba(58, 42, 20, 0.18);
+
+  --font-display: "Cormorant Garamond", "Garamond", "Times New Roman", serif;
+  --font-body: "Iowan Old Style", "Palatino Linotype", "Georgia", serif;
+}
