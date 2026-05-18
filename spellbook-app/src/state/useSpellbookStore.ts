@@ -11,7 +11,14 @@ const initialState = (): SpellbookState => ({
   slots: defaultSpellSlots(),
 });
 
-const hydrate = (): SpellbookState => loadState() ?? initialState();
+const hydrate = (): SpellbookState => {
+  const loaded = loadState();
+  if (!loaded) return initialState();
+  return {
+    ...loaded,
+    character: { ...defaultCharacter(), ...loaded.character },
+  };
+};
 
 export const useSpellbookStore = () => {
   const [state, setState] = useState<SpellbookState>(hydrate);

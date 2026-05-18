@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { SpellbookState } from "../../types";
+import type { Character, SpellbookState } from "../../types";
 import { Panel } from "../common/Panel";
 import { CharacterHeader } from "../character/CharacterHeader";
 import { SpellList } from "./SpellList";
@@ -8,9 +8,10 @@ import { SpellSlotTracker } from "../slots/SpellSlotTracker";
 
 interface Props {
   state: SpellbookState;
+  updateCharacter: (character: Character) => void;
 }
 
-export const SpellbookView = ({ state }: Props) => {
+export const SpellbookView = ({ state, updateCharacter }: Props) => {
   const [selectedSpellId, setSelectedSpellId] = useState<string | null>(
     state.spells[0]?.id ?? null,
   );
@@ -20,7 +21,7 @@ export const SpellbookView = ({ state }: Props) => {
 
   return (
     <div className="spellbook">
-      <CharacterHeader character={state.character} />
+      <CharacterHeader character={state.character} onUpdate={updateCharacter} />
       <main className="spellbook-grid">
         <Panel title="Spells" className="panel--list">
           <SpellList

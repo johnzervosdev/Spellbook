@@ -55,6 +55,68 @@ h3 {
   margin-bottom: 20px;
 }
 
+.character-header--editing {
+  align-items: stretch;
+}
+
+.character-edit-toggle {
+  align-self: flex-start;
+}
+
+.character-editor {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.character-editor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.field--wide {
+  grid-column: 1 / -1;
+}
+
+.field > span {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+}
+
+.field input,
+.field select {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--ink);
+  background: rgba(255, 250, 232, 0.7);
+  border: 1px solid var(--parchment-edge);
+  border-radius: 3px;
+  padding: 6px 8px;
+}
+
+.field input:focus,
+.field select:focus {
+  outline: none;
+  border-color: var(--accent-soft);
+  box-shadow: 0 0 0 2px rgba(122, 30, 30, 0.18);
+}
+
+.character-editor-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
 .character-identity .character-name {
   font-size: 2.2rem;
   color: var(--accent);
@@ -270,4 +332,15 @@ h3 {
 
 .btn:hover {
   background: var(--parchment);
+}
+
+.btn--primary {
+  background: var(--accent);
+  color: #f3e7c9;
+  border-color: var(--accent);
+}
+
+.btn--primary:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent-soft);
 }
