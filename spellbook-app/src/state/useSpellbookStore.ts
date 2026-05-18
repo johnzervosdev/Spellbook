@@ -5,20 +5,24 @@ import { defaultSpellSlots } from "../features/slots/slotModel";
 import { sampleSpells } from "../data/sampleSpells";
 import { loadState, saveState } from "./persistence";
 
-const initialState = (): SpellbookState => ({
+export const initialState = (): SpellbookState => ({
   character: defaultCharacter(),
   spells: sampleSpells(),
   slots: defaultSpellSlots(),
 });
 
-const hydrate = (): SpellbookState => {
-  const loaded = loadState();
-  if (!loaded) return initialState();
+export const mergeLoadedState = (
+  loaded: SpellbookState | null,
+  defaults: SpellbookState,
+): SpellbookState => {
+  if (!loaded) return defaults;
   return {
     ...loaded,
-    character: { ...defaultCharacter(), ...loaded.character },
+    character: { ...defaults.character, ...loaded.character },
   };
 };
+
+const hydrate = (): SpellbookState => mergeLoadedState(loadState(), initialState());
 
 export const useSpellbookStore = () => {
   const [state, setState] = useState<SpellbookState>(hydrate);
