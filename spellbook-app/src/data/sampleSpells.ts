@@ -1,25 +1,107 @@
 import type { Spell } from "../types";
 
+// Seed spellbook for Süunöphel Brüwthäne ("Son of Ale, Brew Thane") —
+// a middle-aged dwarven Chronurgy Wizard (Lv 3) from a family of brewers
+// who sees magic as another expression of the brewer's craft: patient,
+// transformative, and concerned with the shaping of time and matter.
+//
+// 14 chosen spells + 2 acquired from scrolls (Hold Person, Fireball).
+// Fireball cannot yet be cast at Lv 3 — it lives in the book against
+// the day his slots catch up to his ambition.
+
 export const sampleSpells = (): Spell[] => [
+  // — Cantrips —
   {
-    id: "seed-magic-missile",
-    name: "Magic Missile",
-    level: 1,
+    id: "seed-fire-bolt",
+    name: "Fire Bolt",
+    level: 0,
     school: "Evocation",
     description:
-      "Three glowing darts of magical force, each striking a creature of your choice for 1d4 + 1 force damage.",
+      "Hurl a mote of fire at a creature or object within range. Make a ranged spell attack; on a hit, the target takes 1d10 fire damage. A flammable object hit by this spell ignites if it isn't being worn or carried.",
+    prepared: false,
+    ritual: false,
+  },
+  {
+    id: "seed-mage-hand",
+    name: "Mage Hand",
+    level: 0,
+    school: "Conjuration",
+    description:
+      "A spectral, floating hand appears at a point you choose within range. The hand can manipulate objects, open unlocked doors and containers, stow or retrieve items from open containers, or pour the contents of a vial. It cannot attack, activate magic items, or carry more than 10 pounds.",
+    prepared: false,
+    ritual: false,
+  },
+  {
+    id: "seed-prestidigitation",
+    name: "Prestidigitation",
+    level: 0,
+    school: "Transmutation",
+    description:
+      "A minor magical trick. Create a harmless sensory effect, light or snuff a candle, clean or soil an object, chill or warm up to 1 cubic foot of nonliving material, make a mark on a surface for 1 hour, or create a nonmagical trinket or illusory image that fits in your hand for a round.",
+    prepared: false,
+    ritual: false,
+  },
+  {
+    id: "seed-mending",
+    name: "Mending",
+    level: 0,
+    school: "Transmutation",
+    description:
+      "Repair a single break or tear in a touched object no larger than 1 foot in any dimension, leaving no trace of the former damage. Useful for broken chain links, torn cloaks, leaking wineskins, or shattered keys.",
+    prepared: false,
+    ritual: false,
+  },
+
+  // — 1st Level —
+  {
+    id: "seed-silvery-barbs",
+    name: "Silvery Barbs",
+    level: 1,
+    school: "Enchantment",
+    description:
+      "Reaction, when a creature within 60 feet you can see succeeds on an attack roll, ability check, or saving throw: force them to reroll and use the lower result. Then choose a different creature you can see within 60 feet — that creature gains advantage on its next attack roll, ability check, or saving throw within the next minute.",
     prepared: true,
     ritual: false,
   },
   {
-    id: "seed-shield",
-    name: "Shield",
+    id: "seed-alarm",
+    name: "Alarm",
     level: 1,
     school: "Abjuration",
     description:
-      "An invisible barrier of magical force appears, granting +5 AC until the start of your next turn.",
+      "Set an alarm against unwanted intrusion in an area no larger than a 20-foot cube. The alarm alerts you whenever a Tiny or larger creature touches or enters the warded area. Choose mental or audible; designate creatures that won't trigger it. Duration: 8 hours.",
+    prepared: false,
+    ritual: true,
+  },
+  {
+    id: "seed-detect-magic",
+    name: "Detect Magic",
+    level: 1,
+    school: "Divination",
+    description:
+      "For the duration, you sense the presence of magic within 30 feet. Using an action, you can see a faint aura around any visible creature or object in the area that bears magic and learn its school of magic, if any. Concentration, up to 10 minutes.",
+    prepared: false,
+    ritual: true,
+  },
+  {
+    id: "seed-feather-fall",
+    name: "Feather Fall",
+    level: 1,
+    school: "Transmutation",
+    description:
+      "Reaction: choose up to five falling creatures within 60 feet. Until the spell ends, a falling creature's rate of descent slows to 60 feet per round. If a creature lands before the spell ends, it takes no falling damage and can land on its feet. Duration: 1 minute.",
     prepared: true,
     ritual: false,
+  },
+  {
+    id: "seed-identify",
+    name: "Identify",
+    level: 1,
+    school: "Divination",
+    description:
+      "Touch one object throughout the casting. If it's a magic item or magic-imbued, learn its properties, how to use them, whether attunement is required, and how many charges remain. You also learn any spells affecting the item. Casting time: 1 minute.",
+    prepared: false,
+    ritual: true,
   },
   {
     id: "seed-mage-armor",
@@ -27,7 +109,71 @@ export const sampleSpells = (): Spell[] => [
     level: 1,
     school: "Abjuration",
     description:
-      "A protective magical force surrounds an unarmored creature, setting its AC to 13 + Dex modifier for 8 hours.",
+      "A protective magical force surrounds an unarmored willing creature you touch. The target's base AC becomes 13 + its Dexterity modifier until the spell ends. Ends if the target dons armor or you dismiss the spell. Duration: 8 hours.",
+    prepared: false,
+    ritual: false,
+  },
+  {
+    id: "seed-magic-missile",
+    name: "Magic Missile",
+    level: 1,
+    school: "Evocation",
+    description:
+      "Create three glowing darts of magical force. Each dart hits a creature of your choice you can see within range, dealing 1d4 + 1 force damage. The darts strike simultaneously and can be directed to one creature or several. Higher levels: one additional dart per slot above 1st.",
+    prepared: true,
+    ritual: false,
+  },
+  {
+    id: "seed-unseen-servant",
+    name: "Unseen Servant",
+    level: 1,
+    school: "Conjuration",
+    description:
+      "Create an invisible, mindless, shapeless, Medium force that performs simple tasks at your command until the spell ends. AC 10, 2 HP, Strength 2; cannot attack. If reduced to 0 HP the spell ends. Duration: 1 hour.",
+    prepared: false,
+    ritual: true,
+  },
+
+  // — 2nd Level —
+  {
+    id: "seed-rope-trick",
+    name: "Rope Trick",
+    level: 2,
+    school: "Transmutation",
+    description:
+      "Touch a length of rope up to 60 feet long. One end rises into the air until the rope hangs perpendicular to the ground. At the upper end an invisible entrance opens into an extradimensional space lasting until the spell ends. Up to eight Medium or smaller creatures can climb in to hide. Duration: 1 hour.",
+    prepared: true,
+    ritual: false,
+  },
+  {
+    id: "seed-vortex-warp",
+    name: "Vortex Warp",
+    level: 2,
+    school: "Conjuration",
+    description:
+      "Choose a creature you can see within 90 feet. The target must succeed on a Constitution save (a willing target may choose to fail) or you teleport it to an unoccupied space of your choice you can see within range. The destination must be on a surface or in a liquid that can support the target. Higher levels: range increases by 30 feet per slot above 2nd.",
+    prepared: true,
+    ritual: false,
+  },
+  {
+    id: "seed-hold-person",
+    name: "Hold Person",
+    level: 2,
+    school: "Enchantment",
+    description:
+      "Choose a humanoid you can see within range. The target must succeed on a Wisdom saving throw or be paralyzed for the duration. At the end of each of its turns the target can repeat the save; on a success the spell ends on that target. Concentration, up to 1 minute.",
+    prepared: true,
+    ritual: false,
+  },
+
+  // — 3rd Level (scroll; awaits 5th-level slots) —
+  {
+    id: "seed-fireball",
+    name: "Fireball",
+    level: 3,
+    school: "Evocation",
+    description:
+      "A bright streak flashes from your finger to a point you choose within range, then blossoms with a low roar into an explosion of flame. Each creature in a 20-foot-radius sphere centered on that point must make a Dexterity saving throw, taking 8d6 fire damage on a failed save or half on a success. Higher levels: +1d6 damage per slot above 3rd.",
     prepared: false,
     ritual: false,
   },
