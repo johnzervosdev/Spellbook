@@ -259,8 +259,51 @@ h3 {
 }
 
 .spell-detail-description {
-  margin: 0;
+  margin: 0 0 16px;
   font-size: 1rem;
+}
+
+.cast-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--rule);
+}
+
+.cast-level {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cast-level > span {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+}
+
+.cast-level select {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--ink);
+  background: rgba(255, 250, 232, 0.7);
+  border: 1px solid var(--parchment-edge);
+  border-radius: 3px;
+  padding: 6px 8px;
+}
+
+.cast-level select:focus {
+  outline: none;
+  border-color: var(--accent-soft);
+  box-shadow: 0 0 0 2px rgba(122, 30, 30, 0.18);
+}
+
+.cast-empty {
+  margin: 0;
+  font-style: italic;
+  color: var(--ink-soft);
 }
 
 .slot-list {
@@ -343,4 +386,37 @@ h3 {
 .btn--primary:hover {
   background: var(--accent-soft);
   border-color: var(--accent-soft);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.slot-tracker {
+  display: flex;
+  flex-direction: column;
+}
+
+.slot-actions {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 2px double var(--rule);
+  display: flex;
+  justify-content: center;
+}
+
+.btn--rest {
+  background: #2c3a1f;
+  color: var(--parchment);
+  border-color: #1a2410;
+  font-size: 0.95rem;
+  padding: 8px 20px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.btn--rest:hover {
+  background: #3a4a2a;
+  border-color: #2c3a1f;
 }
