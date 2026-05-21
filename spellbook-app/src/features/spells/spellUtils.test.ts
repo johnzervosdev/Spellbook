@@ -6,8 +6,10 @@ const spell = (id: string, level: SpellLevel): Spell => ({
   id,
   name: id,
   level,
+  school: "Evocation",
   description: "",
   prepared: false,
+  ritual: false,
 });
 
 describe("groupSpellsByLevel", () => {

@@ -14,13 +14,27 @@ export const SPELLCASTING_CLASSES = [
 
 export type SpellcastingClass = (typeof SPELLCASTING_CLASSES)[number];
 
+export const SPELL_SCHOOLS = [
+  "Abjuration",
+  "Conjuration",
+  "Divination",
+  "Enchantment",
+  "Evocation",
+  "Illusion",
+  "Necromancy",
+  "Transmutation",
+] as const;
+
+export type SpellSchool = (typeof SPELL_SCHOOLS)[number];
+
 export interface Spell {
   id: string;
   name: string;
   level: SpellLevel;
-  school?: string;
+  school: SpellSchool;
   description: string;
   prepared: boolean;
+  ritual: boolean;
 }
 
 export interface Character {

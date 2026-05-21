@@ -9,6 +9,7 @@ export const sampleSpells = (): Spell[] => [
     description:
       "Three glowing darts of magical force, each striking a creature of your choice for 1d4 + 1 force damage.",
     prepared: true,
+    ritual: false,
   },
   {
     id: "seed-shield",
@@ -18,6 +19,7 @@ export const sampleSpells = (): Spell[] => [
     description:
       "An invisible barrier of magical force appears, granting +5 AC until the start of your next turn.",
     prepared: true,
+    ritual: false,
   },
   {
     id: "seed-mage-armor",
@@ -27,5 +29,6 @@ export const sampleSpells = (): Spell[] => [
     description:
       "A protective magical force surrounds an unarmored creature, setting its AC to 13 + Dex modifier for 8 hours.",
     prepared: false,
+    ritual: false,
   },
 ];

@@ -178,14 +178,27 @@ h3 {
   overflow: hidden;
 }
 
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--rule);
+  background: rgba(231, 213, 168, 0.5);
+}
+
 .panel-title {
   font-size: 1.05rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: var(--accent);
-  padding: 10px 14px;
-  border-bottom: 1px solid var(--rule);
-  background: rgba(231, 213, 168, 0.5);
+  margin: 0;
+}
+
+.panel-header-action .btn {
+  font-size: 0.78rem;
+  padding: 4px 10px;
 }
 
 .panel-body {
@@ -244,6 +257,43 @@ h3 {
   border: 1px solid var(--accent-soft);
   padding: 1px 6px;
   border-radius: 10px;
+}
+
+.ritual-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  margin-left: 8px;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--ink-soft);
+  background: transparent;
+  border: 1.25px solid var(--ink-soft);
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.field--checkbox {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.field--checkbox > span {
+  font-size: 0.85rem;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--ink);
+}
+
+.field--checkbox input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
 }
 
 .spell-detail-name {
@@ -419,4 +469,177 @@ h3 {
 .btn--rest:hover {
   background: #3a4a2a;
   border-color: #2c3a1f;
+}
+
+.btn--danger {
+  background: transparent;
+  color: var(--accent);
+  border-color: var(--accent-soft);
+}
+
+.btn--danger:hover {
+  background: var(--accent);
+  color: var(--parchment);
+  border-color: var(--accent);
+}
+
+.prepared-toggle {
+  display: inline-block;
+  margin-top: 6px;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: transparent;
+  color: var(--ink-soft);
+  border: 1px solid var(--rule);
+  padding: 2px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+}
+
+.prepared-toggle:hover {
+  border-color: var(--accent-soft);
+  color: var(--accent);
+}
+
+.prepared-toggle--on {
+  background: var(--accent);
+  color: #f3e7c9;
+  border-color: var(--accent);
+}
+
+.prepared-toggle--on:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent-soft);
+  color: #f3e7c9;
+}
+
+.spell-detail-footer {
+  margin-top: 18px;
+  padding-top: 12px;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 12, 4, 0.55);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 48px 16px;
+  overflow-y: auto;
+  z-index: 100;
+}
+
+.modal-card {
+  background: var(--parchment);
+  border: 1px solid var(--parchment-edge);
+  border-radius: 6px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55);
+  width: 100%;
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 2px double var(--rule);
+}
+
+.modal-header h2 {
+  font-size: 1.4rem;
+  color: var(--accent);
+}
+
+.modal-section {
+  padding: 16px 18px;
+}
+
+.modal-section + .modal-section {
+  border-top: 1px solid var(--rule);
+}
+
+.modal-section-title {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-soft);
+  margin: 0 0 10px;
+}
+
+.editor-spell-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.editor-spell-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--rule);
+}
+
+.editor-spell-row:last-child {
+  border-bottom: none;
+}
+
+.editor-spell-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.editor-spell-name {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+}
+
+.editor-spell-meta {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+
+.editor-add-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.editor-add-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.field textarea {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--ink);
+  background: rgba(255, 250, 232, 0.7);
+  border: 1px solid var(--parchment-edge);
+  border-radius: 3px;
+  padding: 6px 8px;
+  resize: vertical;
+}
+
+.field textarea:focus {
+  outline: none;
+  border-color: var(--accent-soft);
+  box-shadow: 0 0 0 2px rgba(122, 30, 30, 0.18);
+}
+
+.editor-add-actions {
+  display: flex;
+  justify-content: flex-end;
 }

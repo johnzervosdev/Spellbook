@@ -11,7 +11,14 @@ export const SpellItem = ({ spell, selected, onSelect }: Props) => (
     className={`spell-item${selected ? " spell-item--selected" : ""}`}
     onClick={() => onSelect(spell.id)}
   >
-    <span className="spell-item-name">{spell.name}</span>
+    <span className="spell-item-name">
+      {spell.name}
+      {spell.ritual && (
+        <span className="ritual-badge" title="Ritual" aria-label="Ritual">
+          R
+        </span>
+      )}
+    </span>
     {spell.prepared && <span className="spell-item-tag">prepared</span>}
   </li>
 );

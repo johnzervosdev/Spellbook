@@ -44,8 +44,10 @@ describe("mergeLoadedState", () => {
           id: "x",
           name: "Custom",
           level: 2,
+          school: "Evocation",
           description: "Custom spell.",
           prepared: false,
+          ritual: false,
         },
       ],
       slots: {
@@ -56,5 +58,45 @@ describe("mergeLoadedState", () => {
     const merged = mergeLoadedState(loaded, defaults);
     expect(merged.spells).toEqual(loaded.spells);
     expect(merged.slots[1]).toEqual({ total: 6, used: 2 });
+  });
+
+  it("backfills missing spell.school with a fallback value", () => {
+    const defaults = initialState();
+    const legacySpell = {
+      id: "legacy",
+      name: "Old Spell",
+      level: 1,
+      description: "Pre-school-field save.",
+      prepared: false,
+    } as unknown as SpellbookState["spells"][number];
+
+    const loaded: SpellbookState = {
+      ...defaults,
+      spells: [legacySpell],
+    };
+
+    const merged = mergeLoadedState(loaded, defaults);
+    expect(merged.spells[0].school).toBeTruthy();
+    expect(merged.spells[0].id).toBe("legacy");
+  });
+
+  it("backfills missing spell.ritual with false", () => {
+    const defaults = initialState();
+    const legacySpell = {
+      id: "legacy-ritual",
+      name: "Pre-Ritual-Field Spell",
+      level: 1,
+      school: "Divination",
+      description: "Saved before ritual field existed.",
+      prepared: false,
+    } as unknown as SpellbookState["spells"][number];
+
+    const loaded: SpellbookState = {
+      ...defaults,
+      spells: [legacySpell],
+    };
+
+    const merged = mergeLoadedState(loaded, defaults);
+    expect(merged.spells[0].ritual).toBe(false);
   });
 });

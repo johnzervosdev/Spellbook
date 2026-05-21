@@ -1,7 +1,8 @@
-import type { Character, SpellSlotState } from "../types";
+import type { Character, Spell, SpellSlotState } from "../types";
 import { SpellbookView } from "../components/spellbook/SpellbookView";
 import { useSpellbookStore } from "../state/useSpellbookStore";
 import { restoreAllSlots, spendSlot } from "../features/slots/slotUtils";
+import { addSpell, removeSpell, toggleSpellPrepared } from "../features/spells/spellModel";
 
 export const App = () => {
   const { state, setState } = useSpellbookStore();
@@ -15,12 +16,24 @@ export const App = () => {
   const longRest = () =>
     setState((prev) => ({ ...prev, slots: restoreAllSlots(prev.slots) }));
 
+  const handleAddSpell = (spell: Spell) =>
+    setState((prev) => ({ ...prev, spells: addSpell(prev.spells, spell) }));
+
+  const handleRemoveSpell = (id: string) =>
+    setState((prev) => ({ ...prev, spells: removeSpell(prev.spells, id) }));
+
+  const handleTogglePrepared = (id: string) =>
+    setState((prev) => ({ ...prev, spells: toggleSpellPrepared(prev.spells, id) }));
+
   return (
     <SpellbookView
       state={state}
       updateCharacter={updateCharacter}
       consumeSlot={consumeSlot}
       longRest={longRest}
+      addSpell={handleAddSpell}
+      removeSpell={handleRemoveSpell}
+      togglePrepared={handleTogglePrepared}
     />
   );
 };

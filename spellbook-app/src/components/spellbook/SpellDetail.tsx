@@ -8,31 +8,30 @@ interface Props {
   spell: Spell | null;
   slots: SpellSlotState;
   onConsumeSlot: (level: keyof SpellSlotState) => void;
+  onTogglePrepared: (id: string) => void;
+  onRemove: (id: string) => void;
 }
 
-export const SpellDetail = ({ spell, slots, onConsumeSlot }: Props) => {
-  if (!spell) {
+export const SpellDetail = (props: Props) => {
+  if (!props.spell) {
     return <p className="empty">Select a spell to read its inscription.</p>;
   }
-  return (
-    <SpellDetailInner
-      key={spell.id}
-      spell={spell}
-      slots={slots}
-      onConsumeSlot={onConsumeSlot}
-    />
-  );
+  return <SpellDetailInner key={props.spell.id} {...props} spell={props.spell} />;
 };
 
-interface InnerProps {
+interface InnerProps extends Omit<Props, "spell"> {
   spell: Spell;
-  slots: SpellSlotState;
-  onConsumeSlot: (level: keyof SpellSlotState) => void;
 }
 
-const SpellDetailInner = ({ spell, slots, onConsumeSlot }: InnerProps) => {
+const SpellDetailInner = ({
+  spell,
+  slots,
+  onConsumeSlot,
+  onTogglePrepared,
+  onRemove,
+}: InnerProps) => {
   const isCantrip = spell.level === 0;
-  const minLevel = spell.level === 0 ? 1 : spell.level;
+  const minLevel = isCantrip ? 1 : spell.level;
   const available = isCantrip ? [] : availableSlotLevels(slots, minLevel);
 
   const defaultLevel: keyof SpellSlotState | null =
@@ -52,10 +51,17 @@ const SpellDetailInner = ({ spell, slots, onConsumeSlot }: InnerProps) => {
       <header>
         <h3 className="spell-detail-name">{spell.name}</h3>
         <p className="spell-detail-meta">
-          {formatSpellLevel(spell.level)}
-          {spell.school ? ` \u00b7 ${spell.school}` : ""}
-          {spell.prepared ? " \u00b7 prepared" : ""}
+          {formatSpellLevel(spell.level)} &middot; {spell.school}
+          {spell.ritual && " \u00b7 Ritual"}
         </p>
+        <button
+          type="button"
+          className={`prepared-toggle${spell.prepared ? " prepared-toggle--on" : ""}`}
+          onClick={() => onTogglePrepared(spell.id)}
+          aria-pressed={spell.prepared}
+        >
+          {spell.prepared ? "Prepared" : "Not prepared"}
+        </button>
       </header>
       <p className="spell-detail-description">{spell.description}</p>
       {!isCantrip && (
@@ -93,6 +99,11 @@ const SpellDetailInner = ({ spell, slots, onConsumeSlot }: InnerProps) => {
           )}
         </div>
       )}
+      <div className="spell-detail-footer">
+        <Button type="button" className="btn--danger" onClick={() => onRemove(spell.id)}>
+          Remove from spellbook
+        </Button>
+      </div>
     </article>
   );
 };

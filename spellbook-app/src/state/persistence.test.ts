@@ -16,8 +16,10 @@ const sampleState = (): SpellbookState => ({
       id: "test-spell",
       name: "Test Spell",
       level: 1,
+      school: "Evocation",
       description: "A spell used in tests.",
       prepared: true,
+      ritual: false,
     },
   ],
   slots: {
