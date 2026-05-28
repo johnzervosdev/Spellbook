@@ -7,4 +7,6 @@ export const defaultCharacter = (): Character => ({
   spellcastingAbilityModifier: 3,
   spellSaveDC: 13,
   spellAttackBonus: 5,
+  maxHp: 26,
+  currentHp: 20,
 });

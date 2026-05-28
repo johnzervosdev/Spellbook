@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import type { Spell, SpellbookState } from "../types";
+import type { Character, Spell, SpellbookState } from "../types";
+import { clampHp } from "../features/character/characterHpUtils";
 import { defaultCharacter } from "../features/character/characterModel";
 import { defaultSpellSlots } from "../features/slots/slotModel";
 import { sampleSpells } from "../data/sampleSpells";
@@ -12,6 +13,12 @@ const normalizeSpell = (spell: Spell): Spell => ({
   school: spell.school ?? FALLBACK_SCHOOL,
   ritual: spell.ritual ?? false,
 });
+
+const normalizeCharacter = (loaded: Character, defaults: Character): Character => {
+  const maxHp = loaded.maxHp ?? defaults.maxHp;
+  const currentHp = clampHp(loaded.currentHp ?? defaults.currentHp, maxHp);
+  return { ...defaults, ...loaded, maxHp, currentHp };
+};
 
 export const initialState = (): SpellbookState => ({
   character: defaultCharacter(),
@@ -26,7 +33,7 @@ export const mergeLoadedState = (
   if (!loaded) return defaults;
   return {
     ...loaded,
-    character: { ...defaults.character, ...loaded.character },
+    character: normalizeCharacter(loaded.character, defaults.character),
     spells: (loaded.spells ?? defaults.spells).map(normalizeSpell),
   };
 };

@@ -44,6 +44,8 @@ export interface Character {
   spellcastingAbilityModifier: number;
   spellSaveDC: number;
   spellAttackBonus: number;
+  maxHp: number;
+  currentHp: number;
 }
 
 export type SpellSlotState = {

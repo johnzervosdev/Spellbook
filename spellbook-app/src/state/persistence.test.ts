@@ -10,6 +10,8 @@ const sampleState = (): SpellbookState => ({
     spellcastingAbilityModifier: 4,
     spellSaveDC: 14,
     spellAttackBonus: 6,
+    maxHp: 20,
+    currentHp: 20,
   },
   spells: [
     {

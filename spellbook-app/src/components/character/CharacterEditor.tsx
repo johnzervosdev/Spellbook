@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from "react";
 import type { Character, SpellcastingClass } from "../../types";
 import { SPELLCASTING_CLASSES } from "../../types";
+import { clampHp } from "../../features/character/characterHpUtils";
 import { Button } from "../common/Button";
 
 interface Props {
@@ -23,7 +24,13 @@ export const CharacterEditor = ({ character, onSave, onCancel }: Props) => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSave({ ...draft, name: draft.name.trim() });
+    const maxHp = Math.max(0, draft.maxHp);
+    onSave({
+      ...draft,
+      name: draft.name.trim(),
+      maxHp,
+      currentHp: clampHp(character.currentHp, maxHp),
+    });
   };
 
   return (
@@ -95,6 +102,17 @@ export const CharacterEditor = ({ character, onSave, onCancel }: Props) => {
             max={20}
             required
             onChange={(e) => update("spellAttackBonus", toInt(e.target.value))}
+          />
+        </label>
+        <label className="field">
+          <span>Max HP</span>
+          <input
+            type="number"
+            value={draft.maxHp}
+            min={0}
+            max={999}
+            required
+            onChange={(e) => update("maxHp", toInt(e.target.value))}
           />
         </label>
       </div>

@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
-import type { Character, Spell, SpellbookState, SpellSlotState } from "../../types";
+import type { Character, Spell, SpellbookState } from "../../types";
 import { Panel } from "../common/Panel";
 import { Button } from "../common/Button";
 import { CharacterHeader } from "../character/CharacterHeader";
+import { SpellSlotTracker } from "../slots/SpellSlotTracker";
 import { SpellList } from "./SpellList";
 import { SpellDetail } from "./SpellDetail";
 import { SpellbookEditor } from "./SpellbookEditor";
-import { SpellSlotTracker } from "../slots/SpellSlotTracker";
 
 interface Props {
   state: SpellbookState;
   updateCharacter: (character: Character) => void;
-  consumeSlot: (level: keyof SpellSlotState) => void;
+  onAdjustHp: (delta: number) => void;
+  consumeSlot: (level: keyof SpellbookState["slots"]) => void;
   longRest: () => void;
   addSpell: (spell: Spell) => void;
   removeSpell: (id: string) => void;
@@ -21,6 +22,7 @@ interface Props {
 export const SpellbookView = ({
   state,
   updateCharacter,
+  onAdjustHp,
   consumeSlot,
   longRest,
   addSpell,
@@ -43,7 +45,18 @@ export const SpellbookView = ({
 
   return (
     <div className="spellbook">
-      <CharacterHeader character={state.character} onUpdate={updateCharacter} />
+      <div className="spellbook-top">
+        <div className="spellbook-top__main">
+          <CharacterHeader
+            character={state.character}
+            onUpdate={updateCharacter}
+            onAdjustHp={onAdjustHp}
+          />
+        </div>
+        <aside className="spellbook-top__slots" aria-label="Spell slots">
+          <SpellSlotTracker slots={state.slots} onLongRest={longRest} layout="sidebar" />
+        </aside>
+      </div>
       <main className="spellbook-grid">
         <Panel
           title="Spells"
@@ -68,9 +81,6 @@ export const SpellbookView = ({
             onTogglePrepared={togglePrepared}
             onRemove={removeSpell}
           />
-        </Panel>
-        <Panel title="Spell Slots" className="panel--slots">
-          <SpellSlotTracker slots={state.slots} onLongRest={longRest} />
         </Panel>
       </main>
       {isEditingSpells && (

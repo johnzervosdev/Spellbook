@@ -80,6 +80,25 @@ describe("mergeLoadedState", () => {
     expect(merged.spells[0].id).toBe("legacy");
   });
 
+  it("backfills missing character HP fields from defaults", () => {
+    const defaults = initialState();
+    const loaded: SpellbookState = {
+      ...defaults,
+      character: {
+        name: "Old Save",
+        casterClass: "Wizard",
+        classLevel: 3,
+        spellcastingAbilityModifier: 3,
+        spellSaveDC: 13,
+        spellAttackBonus: 5,
+      } as unknown as Character,
+    };
+
+    const merged = mergeLoadedState(loaded, defaults);
+    expect(merged.character.maxHp).toBe(defaults.character.maxHp);
+    expect(merged.character.currentHp).toBe(defaults.character.currentHp);
+  });
+
   it("backfills missing spell.ritual with false", () => {
     const defaults = initialState();
     const legacySpell = {
