@@ -57,32 +57,35 @@ export const SpellbookView = ({
           <SpellSlotTracker slots={state.slots} onLongRest={longRest} layout="sidebar" />
         </aside>
       </div>
-      <main className="spellbook-grid">
-        <Panel
-          title="Spells"
-          className="panel--list"
-          headerAction={
-            <Button type="button" onClick={() => setIsEditingSpells(true)}>
-              Edit Spells
-            </Button>
-          }
-        >
-          <SpellList
-            spells={state.spells}
-            selectedSpellId={selectedSpellId}
-            onSelect={setSelectedSpellId}
-          />
-        </Panel>
-        <Panel title="Inscription" className="panel--detail">
-          <SpellDetail
-            spell={selectedSpell}
-            slots={state.slots}
-            onConsumeSlot={consumeSlot}
-            onTogglePrepared={togglePrepared}
-            onRemove={removeSpell}
-          />
-        </Panel>
-      </main>
+      <div className="spellbook-spread">
+        <div className="spellbook-gutter" aria-hidden="true" />
+        <main className="spellbook-grid">
+          <Panel
+            title="Spells"
+            className="panel--list"
+            headerAction={
+              <Button type="button" onClick={() => setIsEditingSpells(true)}>
+                Edit Spells
+              </Button>
+            }
+          >
+            <SpellList
+              spells={state.spells}
+              selectedSpellId={selectedSpellId}
+              onSelect={setSelectedSpellId}
+            />
+          </Panel>
+          <Panel title="Inscription" className="panel--detail">
+            <SpellDetail
+              spell={selectedSpell}
+              slots={state.slots}
+              onConsumeSlot={consumeSlot}
+              onTogglePrepared={togglePrepared}
+              onRemove={removeSpell}
+            />
+          </Panel>
+        </main>
+      </div>
       {isEditingSpells && (
         <SpellbookEditor
           spells={state.spells}

@@ -7,8 +7,9 @@
   --accent: #7a1e1e;
   --accent-soft: #a44a3f;
   --rule: rgba(58, 42, 20, 0.25);
+  --gutter-rule: rgba(58, 42, 20, 0.14);
   --panel-shadow: 0 2px 8px rgba(58, 42, 20, 0.18);
 
   --font-display: "Cormorant Garamond", "Garamond", "Times New Roman", serif;
-  --font-body: "Iowan Old Style", "Palatino Linotype", "Georgia", serif;
+  --font-body: "Lora", "Iowan Old Style", "Palatino Linotype", "Georgia", serif;
 }

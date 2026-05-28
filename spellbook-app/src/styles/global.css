@@ -29,6 +29,8 @@ h3 {
 }
 
 .spellbook {
+  display: flex;
+  flex-direction: column;
   max-width: 1180px;
   margin: 0 auto;
   padding: 24px;
@@ -39,7 +41,7 @@ h3 {
   border: 1px solid var(--parchment-edge);
   border-radius: 6px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
-  min-height: calc(100% - 48px);
+  min-height: min(100vh - 48px, 100%);
   margin-top: 24px;
   margin-bottom: 24px;
 }
@@ -53,11 +55,12 @@ h3 {
 }
 
 .spellbook-top {
+  flex-shrink: 0;
   display: flex;
   align-items: stretch;
   gap: 16px;
-  padding-bottom: 16px;
-  margin-bottom: 20px;
+  padding-bottom: 14px;
+  margin-bottom: 0;
   border-bottom: 2px double var(--rule);
 }
 
@@ -261,16 +264,72 @@ h3 {
   background: var(--parchment);
 }
 
-.spellbook-grid {
+/* Page spread: framed top/bottom; height follows content; gutter meets bottom rule */
+.spellbook-spread {
+  --spell-list-width: 14rem;
+  position: relative;
+  flex: 0 1 auto;
   display: grid;
-  grid-template-columns: minmax(0, 14rem) minmax(0, 1fr);
-  gap: 20px;
-  align-items: start;
+  grid-template-columns: minmax(0, var(--spell-list-width)) minmax(0, 1fr);
+  align-items: stretch;
+  min-height: 8rem;
+  max-width: 100%;
+  border-bottom: 2px double var(--rule);
 }
 
-.panel--list,
-.panel--detail {
+.spellbook-gutter {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--spell-list-width);
+  width: clamp(36px, 4vw, 48px);
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(58, 42, 20, 0.03) 12%,
+    rgba(42, 29, 15, 0.07) 32%,
+    rgba(42, 29, 15, 0.11) 50%,
+    rgba(42, 29, 15, 0.07) 68%,
+    rgba(58, 42, 20, 0.03) 88%,
+    transparent 100%
+  );
+}
+
+.spellbook-grid {
+  display: contents;
+}
+
+.spellbook-grid > .panel--list {
+  grid-column: 1;
+  grid-row: 1;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+}
+
+.spellbook-grid > .panel--detail {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+}
+
+.spellbook-spread .panel--list {
+  padding-right: 14px;
+  box-shadow: inset -16px 0 20px -18px rgba(58, 42, 20, 0.1);
+}
+
+.spellbook-spread .panel--detail {
+  padding-left: 20px;
+  box-shadow: inset 16px 0 20px -18px rgba(58, 42, 20, 0.07);
 }
 
 @media (max-width: 900px) {
@@ -288,8 +347,33 @@ h3 {
     border-top: 1px solid var(--rule);
   }
 
+  .spellbook-spread {
+    display: block;
+    flex: none;
+    min-height: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  .spellbook-gutter {
+    display: none;
+  }
+
   .spellbook-grid {
-    grid-template-columns: 1fr;
+    display: block;
+  }
+
+  .spellbook-spread .panel--list {
+    padding-right: 0;
+    margin-bottom: 12px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--gutter-rule);
+    box-shadow: none;
+  }
+
+  .spellbook-spread .panel--detail {
+    padding-left: 0;
+    box-shadow: none;
   }
 }
 
@@ -299,6 +383,29 @@ h3 {
   border-radius: 4px;
   box-shadow: var(--panel-shadow);
   overflow: hidden;
+}
+
+/* Bundle A: one sheet — spread panels are ruled sections, not cards */
+.spellbook-spread .panel {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
+}
+
+.spellbook-spread .panel-header {
+  background: transparent;
+  padding: 10px 0 10px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.spellbook-spread .panel-body {
+  padding: 12px 4px 14px 0;
+}
+
+.spellbook-spread .panel--detail .panel-body {
+  padding: 16px 12px 20px 4px;
 }
 
 .panel-header {
@@ -329,17 +436,42 @@ h3 {
 }
 
 .spell-level-group + .spell-level-group {
-  margin-top: 14px;
+  margin-top: 10px;
 }
 
 .spell-level-heading {
+  margin: 0 0 4px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.spell-level-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  padding: 4px 2px 6px;
+  font-family: var(--font-display);
   font-size: 0.9rem;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--ink-soft);
-  margin-bottom: 6px;
-  border-bottom: 1px solid var(--rule);
-  padding-bottom: 2px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.spell-level-toggle:hover {
+  color: var(--accent);
+}
+
+.spell-level-toggle__chevron {
+  flex-shrink: 0;
+  font-size: 0.85rem;
+  line-height: 1;
+  color: var(--accent-soft);
 }
 
 .spell-level-list {
@@ -359,11 +491,13 @@ h3 {
 }
 
 .spell-item:hover {
-  background: rgba(122, 30, 30, 0.08);
+  background: rgba(122, 30, 30, 0.06);
 }
 
 .spell-item--selected {
-  background: rgba(122, 30, 30, 0.15);
+  background: rgba(122, 30, 30, 0.07);
+  border-left: 3px solid var(--accent);
+  padding-left: 5px;
   font-weight: 600;
 }
 
@@ -419,21 +553,47 @@ h3 {
   accent-color: var(--accent);
 }
 
+/* Bundle A: inscription page typography */
 .spell-detail-name {
-  font-size: 1.6rem;
+  font-size: 1.85rem;
+  font-weight: 600;
   color: var(--accent);
+  letter-spacing: 0.02em;
+}
+
+.spell-detail-name::after {
+  content: "";
+  display: block;
+  width: 2.75rem;
+  height: 2px;
+  margin-top: 10px;
+  background: linear-gradient(90deg, var(--accent), transparent);
 }
 
 .spell-detail-meta {
-  margin: 2px 0 12px;
-  color: var(--ink-soft);
-  font-style: italic;
-  font-size: 0.9rem;
+  margin: 10px 0 16px;
+  color: var(--accent-soft);
+  font-style: normal;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
 .spell-detail-description {
-  margin: 0 0 16px;
-  font-size: 1rem;
+  margin: 0 0 18px;
+  font-size: 1.05rem;
+  line-height: 1.62;
+  max-width: 65ch;
+}
+
+.spell-detail-description::first-letter {
+  font-family: var(--font-display);
+  float: left;
+  font-size: 2.35em;
+  line-height: 0.82;
+  padding: 0.04em 0.1em 0 0;
+  color: var(--accent);
+  font-weight: 600;
 }
 
 .cast-row {
